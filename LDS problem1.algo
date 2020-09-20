@@ -1,0 +1,79 @@
+
+//problem 1 solution1
+
+ALGORITHM algorithm_distinct_elts_sum_array
+VAR
+    Set1 , Set2  : ARRAY_OF INTEGER[50];
+    i , j , sum : INTEGER;
+BEGIN
+    read (Set 1);
+    read (Set 2);
+    sum = 0;
+    FOR i FROM 0 TO Set1.length-1 STEP 1  DO
+        IF (Set1[i] != Set2[j]) THEN
+            sum += Set1[i] ;
+        ELSE
+            i++ ;
+        END_IF
+    END_FOR
+
+    FOR j FROM 0 TO Set2.length-1 STEP 1  DO
+        IF (Set2[j] != Set1[i]) THEN
+            sum += Set2[j]
+        ELSE 
+            j++;
+        END_IF
+    END_FOR
+    
+END
+
+
+//problem 1 solution2
+
+ALGORITHM algorithm_distinct_elts_sum_hashtable
+VAR
+    htab : HASH_TABLE <INTEGER,INTEGER>
+    Set1 , Set2  : ARRAY_OF INTEGER[50];
+    i , j , sum : INTEGER;
+BEGIN
+
+// insert arrays in the hash table
+    read (Set1)
+    FOR i FROM 0 TO Set1.length-1 STEP 1  DO
+        IF (htab.lookup(Set1[i]) = true) THEN
+            count := htab.get(Set1[i])
+            htab.insert(Set1[i],count+1);
+        ELSE 
+            htab.insert(Set1[i],1);
+        END_IF
+    END_FOR
+
+    read (Set2)
+    FOR j FROM 0 TO Set2.length-1 STEP 1  DO
+        IF (htab.lookup(Set2[j]) = true) THEN
+            count := htab.get(Set2[j])
+            htab.insert(Set2[j],count+1);
+        ELSE 
+            htab.insert(Set2[j],1);
+        END_IF
+    END_FOR
+
+
+//Loop through the hash table to extract the distinct elements
+    FOR i FROM 0 TO Set1.length-1 STEP 1  DO
+        FOR j FROM 0 TO Set2.length-1 STEP 1  DO
+            IF (htab.get(Set2[j]) = 1) THEN
+                sum += htab.get(Set2[j])
+            ELSE IF
+                (htab.get(Set1[i]) = 1) THEN
+                sum += htab.get(Set1[i])
+
+            END_IF
+        END_FOR
+    END_FOR
+    write ('sum of distinct elements =' sum)
+END
+
+
+
+

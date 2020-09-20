@@ -1,0 +1,49 @@
+//problem 2 solution 1
+ALGORITHM algorithm_sum_of_overlapping_elements
+VAR
+    Set1 , Set2  : ARRAY_OF INTEGER[50];
+    i , j , sum : INTEGER;
+    count := 1;
+BEGIN
+    read (Set1)
+    read (Set2)
+    FOR i FROM 0 TO Set1.length-1 STEP 1  DO
+        IF (Set1[i] != -1) THEN
+            FOR j FROM 0 TO Set2.length-1 STEP 1  DO
+                IF (Set1[i] == Set2[j]) THEN
+                    count += 1;
+                    sum += Set1[i] * 2;
+                    Set2[j] = -1;
+                END_IF
+            END_FOR
+        END_IF
+    END_FOR
+END
+
+//problem 2 solution 2
+ALGORITHM sum of averlapping elts using queue
+VAR 
+    stk= STACK;
+    Set1, Set2 : ARRAY OF INTEGER[50];
+    state_stack : INTEGER;
+    i,j :INTEGER =0;
+    count =1;
+BEGIN
+    read (Set1)
+    WHILE (stk.isEmpty() ) DO
+        stk.push(Set1);
+        state_stack := stk.peek();
+        Write(state_stack);
+        BREAK;
+    IF (stk.peek() === Set2[j]) THEN
+        sum =sum + Set2[j];
+        count = -1;
+        state_stack := stk.pop();
+    ELSE
+        Set2[j] = Set2[j] + 1;
+    END_IF
+    END_WHILE
+
+    write ('sum of the overlapping elements is' sum);
+
+END
